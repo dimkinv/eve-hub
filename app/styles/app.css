@@ -1,0 +1,12 @@
+.icon {
+    width: 64px;
+    height: 64px;
+}
+
+.icon-btn{
+    cursor: pointer;
+}
+
+.icon-char {
+    background: url('../assets/icons/ui/WindowIcons/charactersheet.png');
+}
