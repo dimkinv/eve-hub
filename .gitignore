@@ -3,4 +3,5 @@
 *.js.map
 node_modules
 typings
-client/bower_components
+bower_components
+npm-debug.log
