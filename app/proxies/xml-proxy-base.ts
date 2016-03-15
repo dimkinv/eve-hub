@@ -1,6 +1,5 @@
 import {Injectable} from 'angular2/core'
 import {Http} from 'angular2/http'
-import * as _ from 'lodash'
 import 'rxjs/Rx';
 
 @Injectable()
@@ -9,11 +8,11 @@ export class XMLProxyBase {
 
     constructor(private http:Http) {
         //TODO: should be moved into configurations later
-        this.baseUrl = 'https://api.eveonline.com/eve/'
+        this.baseUrl = 'https://api.eveonline.com/'
     }
 
-    getFullEndpoint(endpointSuffix:string):string {
-        return this.baseUrl + endpointSuffix;
+    getFullEndpoint(endpointSuffix:string, params: ICharAuthentication):string {
+        return this.baseUrl + endpointSuffix + this._buildQueryString(params);
     }
 
     protected getXMLResult(eEndpoint: eEndpoints, params: ICharAuthentication) {
@@ -22,10 +21,13 @@ export class XMLProxyBase {
         //TODO: this all should come from configurations
         switch (eEndpoint) {
             case eEndpoints.CHARACTER_INFO:
-                url = this.getFullEndpoint('CharacterInfo.xml.aspx') + this._buildQueryString(params);
+                url = this.getFullEndpoint('CharacterInfo.xml.aspx', params);
                 break;
             case eEndpoints.ACCOUNT_STATUS:
-                url = this.getFullEndpoint('account/AccountStatus.xml.aspx') + this._buildQueryString(params)
+                url = this.getFullEndpoint('account/AccountStatus.xml.aspx', params);
+                break;
+            case eEndpoints.ACCOUNT_CHARACTERS:
+                url = this.getFullEndpoint('account/Characters.xml.aspx', params);
         }
 
         return this.http.get(url)
@@ -51,7 +53,8 @@ export class XMLProxyBase {
 
 export enum eEndpoints{
     CHARACTER_INFO,
-    ACCOUNT_STATUS
+    ACCOUNT_STATUS,
+    ACCOUNT_CHARACTERS
 }
 
 export interface ICharAuthentication{

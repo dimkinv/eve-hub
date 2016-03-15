@@ -1,20 +1,27 @@
 import {Component} from 'angular2/core';
-import {CharacterProxy} from '../proxies/character-proxy';
+import {AccountProxy} from '../proxies/account-proxy';
+import {CharIdToImgPipe} from '../services/xml-parser/pipes/char-is-to-img.pipe'
+import {Character} from '../services/xml-parser/models/character'
+import {CharComponent} from './char/char.component'
 
 @Component({
     selector: 'login',
     templateUrl: 'app/login/login.template.html',
-    providers: [CharacterProxy]
+    providers: [AccountProxy],
+    pipes:[CharIdToImgPipe],
+    directives:[CharComponent],
 })
 export class LoginComponent{
-    constructor(private characterProxy: CharacterProxy){
+    constructor(private characterProxy: AccountProxy){
 
     }
 
+    public chars: Array<Character>;
+
     public validateAndGo(){
-        this.characterProxy.getAccountStatus()
-        .then((res) => {
-            console.log(res);
+        this.characterProxy.getCharacters()
+        .then((chars) => {
+            this.chars = chars;
         })
     }
 }
