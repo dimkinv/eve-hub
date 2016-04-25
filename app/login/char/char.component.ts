@@ -4,7 +4,7 @@ import {Character} from '../../services/xml-parser/models/character'
 
 @Component({
     selector: 'character',
-    template: '<img [src]="char.id | charIdToImg"/>',
+    templateUrl: 'app/login/char/char.template.html',
     pipes:[CharIdToImgPipe]
 })
 export class CharComponent{

@@ -3,7 +3,7 @@ import {Character} from './models/character'
 
 export class AccountXMLParser extends XMLParserBase {
     public parseAccountCharacters(accountCharacters:string) {
-        let result:JQuery = this.parseXML(accountCharacters);
+        let result:XMLDocument = this.parseXML(accountCharacters);
         let rows = $('row', result);
         let chars:Array<Character> = [];
         _.each(rows, (row:HTMLElement)=> {

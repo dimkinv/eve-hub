@@ -4,7 +4,7 @@ import {XMLProxyBase, eEndpoints, ICharAuthentication} from './xml-proxy-base'
 
 @Injectable()
 export class CharacterProxy extends XMLProxyBase{
-    constructor(private http:Http){
+    constructor(http:Http){
         super(http);
     }
 
